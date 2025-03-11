@@ -1,0 +1,10 @@
+.container{
+   background-color: aqua;
+   display: flex;
+   flex-direction: column;
+   padding:  10px;
+   row-gap: 7px;
+   border: 1px solid red;
+   margin-top: 30px;
+}
+
