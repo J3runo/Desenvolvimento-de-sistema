@@ -1,0 +1,17 @@
+.header{
+    background-color: #202024;
+    max-width: 1280px;
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+    column-gap: 10px;
+    margin: 0 auto;
+}
+
+.header h2{
+    color: #ffff;
+    font-size: 30px;
+}
+.header img{
+    height: 40px;
+}

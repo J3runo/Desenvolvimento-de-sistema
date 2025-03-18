@@ -6,7 +6,7 @@ import { useRouter } from "next/router"
 
 export default function Login() {
 
-    const router = useRouter()
+    // const router = useRouter()
     const [email,setEmail] = useState<string>('')
     const [senha,setSenha] = useState<string>('')
 
@@ -15,7 +15,7 @@ export default function Login() {
         return
      }
     }
-    router.replace("/")
+    // router.replace("/")
 
 
     return (

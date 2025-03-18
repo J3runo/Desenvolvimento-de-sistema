@@ -20,12 +20,14 @@ export default function Home() {
     if(Contador > 0){
     setContador(Contador - 1)
   }
+
+ 
   }
 
 
 
   return (
-    <div>
+    <div className="container">
       <h1>Contador: {Contador}</h1>
       <button onClick = {() => incrementar()}>incrementar</button>
       <button onClick = {() => decrementar()}>decrementar</button>
