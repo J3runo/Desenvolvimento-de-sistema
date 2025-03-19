@@ -1,7 +1,11 @@
 import './styles.css'
 
-export default function Botao(){
-    return(
-        <div className='botao'></div>
+export default function Botao() {
+    return (
+        
+            <footer>
+                <button className='publicar' >Publicar</button>
+            </footer>
+      
     )
 }

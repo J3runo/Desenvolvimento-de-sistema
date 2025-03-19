@@ -1,5 +1,11 @@
+'use client'
+
+import { FormEvent, useState } from "react";
 import Avatar from "../Avatar";
+import Botao from "../Botao";
 import "./styles.css"
+import { format, formatDistanceToNow } from "date-fns";
+import { ptBR } from "date-fns/locale";
 
 type Author = {
     name: string;
@@ -17,41 +23,50 @@ type Author = {
 type PostProps = {
     post: {
         author: Author
-        publisheAt: Date
+        publishedAt: Date
         content: string
     }
 }
 
 
 export default function Post({ post }: PostProps) {
+    const [newComment, setNewComment] = useState<string>("")
+
+    function handleCreateNewComment(event: FormEvent) {
+        event.preventDefault();
+        alert(newComment)
+    }
+
+    const dateFormat = formatDistanceToNow(post.publishedAt, {
+        locale:ptBR,
+        addSuffix:true
+    })
+
     return (
         <article className="post">
             <header>
                 <div className="author">
-                    <Avatar src={"https://github.com/J3runo.png"} hasBorder />
+                    <Avatar src={post.author.avatarUrl} hasBorder />
                     <div className="author-info">
-                        <strong>Bruno Silva</strong>
-                        <span>Desenvolvedor</span>
+                        <strong>{post.author.name}</strong>
+                        <span>{post.author.role}</span>
                     </div>
                 </div>
                 <time >
-                    Publicado há 2 horas
+                    {dateFormat }
                 </time>
             </header>
             <div className="content">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Recusandae sunt laborum assumenda adipisci dicta? Exercitationem
-                    repudiandae natus error architecto harum tenetur unde quae doloremque
-                    . Odio pariatur quibusdam officiis corporis ipsum.
+                <p>{post.content}
                 </p>
             </div>
-            <form className="form">
+            <form className="form" onSubmit={handleCreateNewComment}>
                 <strong>Deixe um comentario</strong>
-                <textarea placeholder="Deixe um Comentario"></textarea>
+                <textarea placeholder="Deixe um Comentario"
+                value={newComment}
+                onChange={(e) => setNewComment(e.target.value)}></textarea>
                 <footer>
-                    <button>
-                        Publicar
-                    </button>
+                    <Botao />
                 </footer>
             </form>
         </article>
