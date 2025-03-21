@@ -6,6 +6,8 @@ import Botao from "../Botao";
 import "./styles.css"
 import { format, formatDistanceToNow } from "date-fns";
 import { ptBR } from "date-fns/locale";
+import TextAreaCustom from "../TextAreaCustom";
+import axios from "axios";
 
 type Author = {
     name: string;
@@ -22,6 +24,7 @@ type Author = {
 
 type PostProps = {
     post: {
+        id: number
         author: Author
         publishedAt: Date
         content: string
@@ -31,15 +34,29 @@ type PostProps = {
 
 export default function Post({ post }: PostProps) {
     const [newComment, setNewComment] = useState<string>("")
+    const [content, setContent] = useState<string>("")
 
-    function handleCreateNewComment(event: FormEvent) {
+    async function handleCreateNewComment(event: FormEvent) {
         event.preventDefault();
         alert(newComment)
+
+        const comment = {
+            comment: newComment,
+            publisedAt: new Date().toISOString(),
+            author: {
+                name: "Bruno silva",
+                role: "full stack",
+                avatarUrl: "http://github.com/J3runo.png"
+            }
+        }
+        await axios.patch(`http://localhost:3001/posts/${post.id}`, {
+            comments: comment
+        })
     }
 
     const dateFormat = formatDistanceToNow(post.publishedAt, {
-        locale:ptBR,
-        addSuffix:true
+        locale: ptBR,
+        addSuffix: true
     })
 
     return (
@@ -53,7 +70,7 @@ export default function Post({ post }: PostProps) {
                     </div>
                 </div>
                 <time >
-                    {dateFormat }
+                    {dateFormat}
                 </time>
             </header>
             <div className="content">
@@ -62,11 +79,12 @@ export default function Post({ post }: PostProps) {
             </div>
             <form className="form" onSubmit={handleCreateNewComment}>
                 <strong>Deixe um comentario</strong>
-                <textarea placeholder="Deixe um Comentario"
-                value={newComment}
-                onChange={(e) => setNewComment(e.target.value)}></textarea>
+                <TextAreaCustom
+                    message={content}
+                    setMessage={setContent}
+                    title="deixe um comentario" />
                 <footer>
-                    <Botao />
+                    <Botao title={"Comentar"} />
                 </footer>
             </form>
         </article>

@@ -9,6 +9,9 @@ import Post from "@/components/Post";
 import { FormEvent, useEffect, useState } from "react";
 import axios from "axios";
 import { Asul } from "next/font/google";
+import Botao from "@/components/Botao";
+import { getTime } from "date-fns";
+import TextAreaCustom from "@/components/TextAreaCustom";
 
 
 export default function Feed() {
@@ -21,21 +24,24 @@ export default function Feed() {
 
     async function loadPost() {
         const response = await axios.get("http://localhost:3001/posts")
-        const postSort = response.data.sort((a, b) => new Date(a.publishedAt) - new Date(b.publishedAt))
-        setPosts(response.data)
+        const postSort = response.data.sort((a: any, b: any) => (
+            new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
+        ))
+
+        setPosts(postSort)
     }
 
-  async  function handleCreatPost(event:FormEvent){
-    event.preventDefault()
+    async function handleCreatPost(event: FormEvent) {
+        event.preventDefault()
 
         const post = {
-            id:posts.length + 1,
+            id: posts.length + 1,
             content: content,
             publishedAt: new Date().toISOString(),
             author: {
                 name: "Bruno Silva",
-                role:"Desenvolvedor",
-                avatarUrl:"https://github.com/J3runo.png"
+                role: "Desenvolvedor",
+                avatarUrl: "https://github.com/J3runo.png"
             }
         }
         await axios.post("http://localhost:3001/posts", post);
@@ -60,13 +66,9 @@ export default function Feed() {
                 </aside>
 
                 <main className="main">
-                    <form onSubmit={handleCreatPost}>
-                        <textarea
-                         placeholder="O que vc esta pensando?"
-                         value={content}
-                         onChange={(e)=> setContent(e.target.value)}
-                        ></textarea>
-                        <button type="submit"> Publicar</button>
+                    <form onSubmit={handleCreatPost} className="post">
+                        <TextAreaCustom message={content} setMessage={setContent} title="O q voce esta pensando" />
+                        <Botao title={"publicar"}/>
                     </form>
 
                     {posts.map(item => (

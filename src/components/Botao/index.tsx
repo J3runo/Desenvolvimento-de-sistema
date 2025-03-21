@@ -1,10 +1,14 @@
 import './styles.css'
 
-export default function Botao() {
+type NomeBotao= {
+    title: string
+}
+
+export default function Botao({title }: NomeBotao) {
     return (
         
             <footer>
-                <button className='publicar' >Publicar</button>
+                <button className='Botao' >{title}</button>
             </footer>
       
     )
