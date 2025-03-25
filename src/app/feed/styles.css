@@ -13,6 +13,8 @@
     border-radius: 8px;
     overflow: hidden;
     height: fit-content;
+   
+    
 }
 
 .sidebar .profile {
@@ -20,6 +22,7 @@
     flex-direction: column;
     align-items: center;
     margin-top: -35;
+    
 }
 
 .sidebar .profile strong {

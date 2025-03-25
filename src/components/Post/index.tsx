@@ -1,6 +1,6 @@
 'use client'
 
-import { FormEvent, useState } from "react";
+import { Dispatch, FormEvent, SetStateAction, useState } from "react";
 import Avatar from "../Avatar";
 import Botao from "../Botao";
 import "./styles.css"
@@ -15,30 +15,43 @@ type Author = {
     avatarUrl: string;
 }
 
-// type Comment = {
-// message: string;
-// publishedAt: Date;
-// like: number;
-// author: Author
-// }
+type Post = {
+    id: string
+    author: Author
+    publishedAt: Date
+    content: string
+    comments: Comment[]
+}
+
+type Comment = {
+    id: string
+    author: Author
+    comment: string
+    publisheAt: Date
+}
 
 type PostProps = {
-    post: {
-        id: number
-        author: Author
-        publishedAt: Date
-        content: string
-    }
+    setPost: Dispatch<SetStateAction<Post[]>>,
+    post: Post
+
 }
 
 
-export default function Post({ post }: PostProps) {
-    const [newComment, setNewComment] = useState<string>("")
-    const [content, setContent] = useState<string>("")
+export default function Post({ post, setPost }: PostProps) {
+    const [newComment, setNewComment] = useState<string>('')
+
+    async function loadPost() {
+        const response = await axios.get(`http://localhost:3001/posts${post.id}`)
+        setPost((prev: Post[]) =>
+            prev.map(atual => (
+                atual.id == post.id ? response.data : atual
+            ))
+        )
+    }
 
     async function handleCreateNewComment(event: FormEvent) {
         event.preventDefault();
-        alert(newComment)
+        
 
         const comment = {
             comment: newComment,
@@ -49,9 +62,13 @@ export default function Post({ post }: PostProps) {
                 avatarUrl: "http://github.com/J3runo.png"
             }
         }
+        const comments = post.comments?.length ? [...post.comments, comment] : [comment]
+
         await axios.patch(`http://localhost:3001/posts/${post.id}`, {
-            comments: comment
+            "comments": comments
         })
+        setNewComment('')
+        loadPost()
     }
 
     const dateFormat = formatDistanceToNow(post.publishedAt, {
@@ -80,13 +97,19 @@ export default function Post({ post }: PostProps) {
             <form className="form" onSubmit={handleCreateNewComment}>
                 <strong>Deixe um comentario</strong>
                 <TextAreaCustom
-                    message={content}
-                    setMessage={setContent}
+                    message={newComment}
+                    setMessage={setNewComment}
                     title="deixe um comentario" />
                 <footer>
                     <Botao title={"Comentar"} />
                 </footer>
             </form>
+
+            {post.comments?.length && post.comments.map(comment =>(
+                <h1 key={comment.comment}>{comment.comment}</h1>
+            ))}
+
+
         </article>
     )
 }

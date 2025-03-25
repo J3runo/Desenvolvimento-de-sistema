@@ -13,9 +13,28 @@ import Botao from "@/components/Botao";
 import { getTime } from "date-fns";
 import TextAreaCustom from "@/components/TextAreaCustom";
 
+type Post = {
+    id: string
+    author: Author
+    publishedAt: Date
+    content: string
+    comments: Comment[]
+}
+type Author = {
+    name: string;
+    role: string;
+    avatarUrl: string;
+}
+type Comment = {
+    id: string
+    author: Author
+    comment: string
+    publisheAt: Date
+}
+
 
 export default function Feed() {
-    const [posts, setPosts] = useState<any[]>([]);
+    const [posts, setPosts] = useState<Post[]>([]);
     const [content, setContent] = useState<string>('')
     //chamado quando atualiza a pagina: useEffect
     useEffect(() => {
@@ -72,7 +91,7 @@ export default function Feed() {
                     </form>
 
                     {posts.map(item => (
-                        <Post post={item} key={item.id} />
+                        <Post post={item} key={item.id} setPost={setPosts} />
                     ))}
 
                 </main>
