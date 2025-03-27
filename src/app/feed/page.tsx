@@ -19,7 +19,7 @@ type Post = {
     publishedAt: Date
     content: string
     comments: Comment[]
-}
+} 
 type Author = {
     name: string;
     role: string;

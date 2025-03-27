@@ -39,30 +39,7 @@
         "role": "Desenvolvedor",
         "avatarUrl": "https://github.com/J3runo.png"
       },
-      "comments": [
-        {
-          "id": "ae90366a-8d87-474f-80ca-26f76121cd90",
-          "comment": "teste",
-          "publishedAt": "2025-03-26T00:18:22.013Z",
-          "like": 0,
-          "author": {
-            "name": "Bruno silva",
-            "role": "full stack",
-            "avatarUrl": "http://github.com/J3runo.png"
-          }
-        },
-        {
-          "id": "a0a72900-e5de-449e-af65-a2c9348b8e79",
-          "comment": "teste 2\n",
-          "publishedAt": "2025-03-26T00:18:46.524Z",
-          "like": 0,
-          "author": {
-            "name": "Bruno silva",
-            "role": "full stack",
-            "avatarUrl": "http://github.com/J3runo.png"
-          }
-        }
-      ]
+      "comments": []
     }
   ]
 }

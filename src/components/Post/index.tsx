@@ -81,22 +81,23 @@ export default function Post({ post, setPost }: PostProps) {
         event.preventDefault()
 
         const commentsFilter = post.comments.filter(Comment => Comment.id !== id)
-        await axios.patch(`http://localhost:3001/posts/S{post.id}`,{
+        await axios.patch(`http://localhost:3001/posts/${post.id}`,{
             "comments" : commentsFilter
         })
+        loadPost()
     }
-    loadPost()
 
     async function handleLikeComment(event: MouseEvent, id:string){
         event.preventDefault()
 
         const commentsUpdated = post.comments.map(comment=>{
             if(comment.id === id){
-                return{...comment, like:comment.like + 1}
+                return{...comment, like: comment.like + 1}
             }
             return comment;
         })
-        await axios.patch(`http://localhost:3001/posts/S{post.id}`,{
+
+        await axios.patch(`http://localhost:3001/posts/${post.id}`,{
             "comments" : commentsUpdated
         })
     }

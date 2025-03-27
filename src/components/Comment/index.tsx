@@ -3,7 +3,7 @@ import Avatar from "../Avatar"
 import "./styles.css"
 import { MdDeleteOutline } from "react-icons/md"
 import Post from "../Post"
-import { formatDistance, formatDistanceToNow } from "date-fns"
+import { formatDistanceToNow } from "date-fns"
 import { ptBR } from "date-fns/locale"
 
 type Author = {
@@ -26,7 +26,7 @@ type commentProps ={
 
    
 
-export default function Comment({comment}, handleDelete, handleLike : commentProps) {
+export default function Comment({comment, handleDelete, handleLike} : commentProps) {
     const dateFormat = formatDistanceToNow(comment.publishedAt, {
         locale: ptBR,
         addSuffix: true

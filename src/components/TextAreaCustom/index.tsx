@@ -13,4 +13,4 @@ export default function TextAreaCustom({ message, setMessage, title }: TexteArea
             value={message}
             onChange={(e) => setMessage(e.target.value)}></textarea >
     )
-}
+}  
