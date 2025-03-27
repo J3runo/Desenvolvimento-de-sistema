@@ -8,18 +8,7 @@
         "avatarUrl": "https://github.com/benedettmanu.png"
       },
       "publishedAt": "2025-03-18T12:00:00Z",
-      "content": "Hoje compartilhei algumas dicas sobre React no meu blog! Falei sobre como utilizar hooks personalizados para gerenciar estado de forma eficiente e evitar repetições de código. Também mencionei a importância da organização dos componentes e como utilizar o Context API para melhorar a comunicação entre eles. Confira o post completo no meu site!",
-      "comments": [
-        {
-          "comment": "fsdsdafasf",
-          "publisedAt": "2025-03-25T00:50:02.140Z",
-          "author": {
-            "name": "Bruno silva",
-            "role": "full stack",
-            "avatarUrl": "http://github.com/J3runo.png"
-          }
-        }
-      ]
+      "content": "Hoje compartilhei algumas dicas sobre React no meu blog! Falei sobre como utilizar hooks personalizados para gerenciar estado de forma eficiente e evitar repetições de código. Também mencionei a importância da organização dos componentes e como utilizar o Context API para melhorar a comunicação entre eles. Confira o post completo no meu site!"
     },
     {
       "id": "2",
@@ -40,6 +29,40 @@
       },
       "publishedAt": "2025-03-16T10:15:00Z",
       "content": "Design de interfaces pensando na acessibilidade é essencial! Recentemente, realizei uma pesquisa sobre como melhorar a experiência de navegação para pessoas com deficiência visual e auditiva. Implementamos melhorias como contraste adequado, suporte a leitores de tela e navegação por teclado. Pequenas mudanças podem fazer uma grande diferença na inclusão digital!"
+    },
+    {
+      "id": "4",
+      "content": "testando post\n",
+      "publishedAt": "2025-03-25T21:55:08.180Z",
+      "author": {
+        "name": "Bruno Silva",
+        "role": "Desenvolvedor",
+        "avatarUrl": "https://github.com/J3runo.png"
+      },
+      "comments": [
+        {
+          "id": "ae90366a-8d87-474f-80ca-26f76121cd90",
+          "comment": "teste",
+          "publishedAt": "2025-03-26T00:18:22.013Z",
+          "like": 0,
+          "author": {
+            "name": "Bruno silva",
+            "role": "full stack",
+            "avatarUrl": "http://github.com/J3runo.png"
+          }
+        },
+        {
+          "id": "a0a72900-e5de-449e-af65-a2c9348b8e79",
+          "comment": "teste 2\n",
+          "publishedAt": "2025-03-26T00:18:46.524Z",
+          "like": 0,
+          "author": {
+            "name": "Bruno silva",
+            "role": "full stack",
+            "avatarUrl": "http://github.com/J3runo.png"
+          }
+        }
+      ]
     }
   ]
 }

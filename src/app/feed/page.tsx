@@ -27,6 +27,7 @@ type Author = {
 }
 type Comment = {
     id: string
+    like:number
     author: Author
     comment: string
     publisheAt: Date
