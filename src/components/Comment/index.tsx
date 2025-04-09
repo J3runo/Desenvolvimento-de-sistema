@@ -42,7 +42,7 @@ export default function Comment({comment, handleDelete, handleLike} : commentPro
                             <time>{dateFormat}</time>
                         </div>
                         <button title="Deletar-comentario" onClick={(event) => handleDelete(event, comment.id)}>
-                        <MdDeleteOutline size={24}/>
+                        <MdDeleteOutline size={24} data-testid={"buttonDelet"}/>
                         </button>
                     </header>
                     <p>{comment.comment}</p>

@@ -1,14 +1,15 @@
 import './styles.css'
 
 type NomeBotao= {
-    title: string
+    title?: string
+    handle:()=> void
 }
 
-export default function Botao({title }: NomeBotao) {
+export default function Botao({title, handle }: NomeBotao) {
     return (
         
             <footer>
-                <button className='Botao' >{title}</button>
+                <button className='Botao' onClick={handle}>{title ? title :('foi')} </button>
             </footer>
       
     )
