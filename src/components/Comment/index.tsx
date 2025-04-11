@@ -12,21 +12,21 @@ type Author = {
     avatarUrl: string;
 }
 
-type commentProps ={
-    handleLike: (event:any, id:string) => void
-    handleDelete: (event:any, id:string) => void
-    comment:{
-            id: string
-            like:number
-            author: Author
-            comment: string
-            publishedAt: Date
-        }
+type commentProps = {
+    handleLike: (event: any, id: string) => void
+    handleDelete: (event: any, id: string) => void
+    comment: {
+        id: string
+        like: number
+        author: Author
+        comment: string
+        publishedAt: Date
     }
+}
 
-   
 
-export default function Comment({comment, handleDelete, handleLike} : commentProps) {
+
+export default function Comment({ comment, handleDelete, handleLike }: commentProps) {
     const dateFormat = formatDistanceToNow(comment.publishedAt, {
         locale: ptBR,
         addSuffix: true
@@ -42,15 +42,15 @@ export default function Comment({comment, handleDelete, handleLike} : commentPro
                             <time>{dateFormat}</time>
                         </div>
                         <button title="Deletar-comentario" onClick={(event) => handleDelete(event, comment.id)}>
-                        <MdDeleteOutline size={24} data-testid={"buttonDelet"}/>
+                            <MdDeleteOutline size={24} data-testid={"buttonDelet"} />
                         </button>
                     </header>
                     <p>{comment.comment}</p>
                 </div>
                 <footer>
                     <button onClick={(event) => handleLike(event, comment.id)}>
-                    <BiLike size={24}/>
-                    Aplaudir <span>{comment.like}</span>
+                        <BiLike size={24} />
+                        Aplaudir <span>{comment.like}</span>
                     </button>
                 </footer>
             </div>

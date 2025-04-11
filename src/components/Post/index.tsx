@@ -28,7 +28,7 @@ type Post = {
 
 type Comment = {
     id: string
-    like:number
+    like: number
     author: Author
     comment: string
     publishedAt: Date
@@ -61,7 +61,7 @@ export default function Post({ post, setPost }: PostProps) {
             id: uuid(),
             comment: newComment,
             publishedAt: new Date().toISOString(),
-            like:0,
+            like: 0,
             author: {
                 name: "Bruno silva",
                 role: "full stack",
@@ -77,38 +77,38 @@ export default function Post({ post, setPost }: PostProps) {
         setNewComment('')
     }
 
-    async function handleDeleteComment(event: MouseEvent, id:string){
+    async function handleDeleteComment(event: MouseEvent, id: string) {
         event.preventDefault()
 
         const commentsFilter = post.comments.filter(Comment => Comment.id !== id)
-        await axios.patch(`http://localhost:3001/posts/${post.id}`,{
-            "comments" : commentsFilter
+        await axios.patch(`http://localhost:3001/posts/${post.id}`, {
+            "comments": commentsFilter
         })
         loadPost()
     }
 
-    async function handleLikeComment(event: MouseEvent, id:string){
+    async function handleLikeComment(event: MouseEvent, id: string) {
         event.preventDefault()
 
-        const commentsUpdated = post.comments.map(comment=>{
-            if(comment.id === id){
-                return{...comment, like: comment.like + 1}
+        const commentsUpdated = post.comments.map(comment => {
+            if (comment.id === id) {
+                return { ...comment, like: comment.like + 1 }
             }
             return comment;
         })
 
-        await axios.patch(`http://localhost:3001/posts/${post.id}`,{
-            "comments" : commentsUpdated
+        await axios.patch(`http://localhost:3001/posts/${post.id}`, {
+            "comments": commentsUpdated
         })
+        loadPost()
     }
-    loadPost()
     const dateFormat = formatDistanceToNow(post.publishedAt, {
         locale: ptBR,
         addSuffix: true
     })
 
     return (
-        <article className="post">
+        <article className="post" data-testid="post-test">
             <header>
                 <div className="author">
                     <Avatar src={post.author.avatarUrl} hasBorder />
@@ -132,12 +132,12 @@ export default function Post({ post, setPost }: PostProps) {
                     setMessage={setNewComment}
                     title="deixe um comentario" />
                 <footer>
-                    <Botao title={"Comentar"} />
+                    <Botao title={"Comentar"} handle={() => { }} />
                 </footer>
             </form>
 
             {post.comments?.length && post.comments.map(item => (
-               <Comment key={item.id}  comment={item} handleDelete={handleDeleteComment} handleLike={handleLikeComment}/>
+                <Comment key={item.id} comment={item} handleDelete={handleDeleteComment} handleLike={handleLikeComment} />
             ))}
 
 
