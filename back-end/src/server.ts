@@ -1,9 +1,9 @@
 import fastify from "fastify";
+import { taskController } from "./controller/TaskController";
 
 const app = fastify()
 
-app.get("/hello",()=>{console.log("entrou no endpoint hello");return "ola mundo"})
-app.post("/hello",()=>{console.log("metodo post");return "ola post"})
+app.register(taskController)
 
 app.listen({port:3333}).then(()=>console.log("servidor back-end rodando na porta 3333"))
 
