@@ -31,13 +31,13 @@ export class Task {
     public getUpdateAt(){
         return this.updateAt
     }
-    public setCompleted(completed:boolean){
-        this.completed = completed
+    public setCompleted(){
+        this.completed = !this.completed
         this.updateAt = new Date()
     }
     public setText(text:string){
         this.text = text
         this.updateAt = new Date()
-
     }
+
 }

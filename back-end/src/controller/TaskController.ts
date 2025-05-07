@@ -1,6 +1,7 @@
 import { FastifyInstance } from "fastify";
 import { taskService } from "../services/TaskService";
-import { request } from "http";
+
+
 
 export async function taskController(app: FastifyInstance) {
     //ROTA PARA ADICIONAR COISA NA LISTA
@@ -34,9 +35,7 @@ export async function taskController(app: FastifyInstance) {
     app.patch("/task/:id/completed",(request, reply)=>{
         const {id} = request.params as {id:string};
         try {
-            const {completed} = request.body as { completed: boolean };
-            const task = taskService.updateCompleted(id,completed)
-            
+            const task = taskService.updateCompleted(id)
             return reply.code(200).send(task)
         } catch (error: any) {
             return reply.code(404).send({ erro: error.message })
@@ -54,5 +53,11 @@ export async function taskController(app: FastifyInstance) {
         } catch (error: any) {
             return reply.code(404).send({ erro: error.message })
         }
+     })
+
+    app.delete("/task/:id",(request, reply)=>{
+        const {id} = request.params as {id:string}
+        taskService.delete(id)
+        return reply.code(200).send()
      })
 }
