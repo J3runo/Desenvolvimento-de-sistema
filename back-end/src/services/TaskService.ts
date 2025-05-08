@@ -1,60 +1,52 @@
-import { error } from "console"
-import { Task } from "../entity/Task"
-import { TaskRepository } from "../repository/TaskRepository"
+import { Task } from "../entity/Task";
 
 class TaskService {
 
-    private taskList: Task[] = []
-    private taskRepository = new TaskRepository()
+    private taskList: Task[] = [];
 
-    create(text: string,) {
-        //VERIFICAR SE JA EXISTE UMA TAREFA COM O TEXT INFORMADO
-        // const textAlreadExist = this.taskList.find(task => task.gettext() === text)
-        // if (textAlreadExist) {
-        //     throw new Error("JA EXISTE UMA TAREFA COM ESSE TEXTO.")
-        // }
+    public create(text: string): void {
+        const textAlreadyExist = this.taskList.find(task => task.getText() === text);
+        if (textAlreadyExist) {
+            throw new Error("Já existe uma tarefa com esse texto.")
+        }
 
-        //CRIAR O OBJETO DO TIPO TASK
-        const newTask = new Task(text)
-        this.taskRepository.save(newTask)
+        const newTask = new Task(text);
+        this.taskList.push(newTask);
     }
-    //ADICIONAR NA LISTA OU BANCO DE DADOS
+
     public getAll(): Task[] {
-        return this.taskList
+        return this.taskList;
     }
 
-
-    public getById(id:string):Task | null{
-        const task = this.taskList.find(task => task.getId() === id)
-        return task ? task : null
+    public getById(id: string): Task | null {
+        const task = this.taskList.find(task => task.getId() === id);
+        return task ? task : null;
     }
 
-    public updateCompleted(id:string){
-        const task = this.getById(id) 
+    public updateCompleted(id: string){
+        const task = this.getById(id);
         if(task === null){
-            throw new Error("tarefa nao foi encontrada.")
+            throw new Error("Tarefa não foi encontrada.")
         }
-        task.setCompleted()
-        return task
+
+        task.setCompleted(); 
+        return task;
     }
 
-    public updateText(id:string, text:string){
-        const task = this.getById(id)
+    public updateText(id: string, text: string){
+        const task = this.getById(id);
         if(task === null){
-            throw new Error("tarefa nao foi encontrada.")
+            throw new Error("Tarefa não foi encontrada.")
         }
-        task.setText(text)
-        return task
 
+        task.setText(text);
+        return task;
     }
-    public delete(id:string){
-        const task = this.getById(id)
-        if(task === null){
-            throw new Error("tarefa nao foi encontrada.")
-        }
-        this.taskList = this.taskList.filter(task=> task.getId() !== id)
-        
+
+    public deleteTask(id:string){
+        this.taskList = this.taskList.filter(task => task.getId() !== id)
     }
+
 }
 
-export const taskService = new TaskService()
+export const taskService = new TaskService();

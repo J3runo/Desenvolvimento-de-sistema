@@ -19,7 +19,7 @@ export class Task {
     public getId(){
         return this.id
     }
-    public gettext(){
+    public getText(){
         return this.text
     }
     public getCompleted(){
