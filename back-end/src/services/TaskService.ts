@@ -1,21 +1,26 @@
 import { Task } from "../entity/Task";
+import { Task as TaskPrisma } from "@prisma/client";
+import { prisma } from "../prisma/client";
+
 
 class TaskService {
 
     private taskList: Task[] = [];
 
-    public create(text: string): void {
-        const textAlreadyExist = this.taskList.find(task => task.getText() === text);
-        if (textAlreadyExist) {
-            throw new Error("Já existe uma tarefa com esse texto.")
-        }
+    public async create(text: string):Promise <void> {
+      const task:TaskPrisma = {
+        id: crypto.randomUUID(),
+        text: text,
+        completed: false,
+        createAt: new Date(),
+        updatedAt:new Date()
+      }
 
-        const newTask = new Task(text);
-        this.taskList.push(newTask);
+      await prisma.task.create({data:task})
     }
 
-    public getAll(): Task[] {
-        return this.taskList;
+    public async getAll():Promise<TaskPrisma[]> {
+        return await prisma.task.findMany({orderBy:{createAt:"asc"}});
     }
 
     public getById(id: string): Task | null {
@@ -23,14 +28,22 @@ class TaskService {
         return task ? task : null;
     }
 
-    public updateCompleted(id: string){
-        const task = this.getById(id);
-        if(task === null){
-            throw new Error("Tarefa não foi encontrada.")
-        }
+    public async updateCompleted(id: string){
+       const task = await prisma.task.findUnique({ where: { id }})
+       if(task == null){
+        throw new Error("Tarefa nao foi encontrada")
+       }
 
-        task.setCompleted(); 
-        return task;
+       const taskUpdate = {
+        completed:!task.completed,
+        updatedAt: new Date()
+       }
+
+       return await prisma.task.update({
+        where:{id},
+        data:taskUpdate
+       })
+
     }
 
     public updateText(id: string, text: string){
@@ -43,9 +56,9 @@ class TaskService {
         return task;
     }
 
-    public deleteTask(id:string){
-        this.taskList = this.taskList.filter(task => task.getId() !== id)
-    }
+    public async deleteTask(id:string){
+        return await prisma.task.delete({where:{id}})    }
+
 
 }
 
