@@ -1,8 +1,18 @@
-## instalar o primsa
-npm install @prisma/client prisma dotenv
+##
+npm install @fastify/cors
 
-## inicializa o prisma
+## instalar prisma
+""npm install @prisma/client prisma dotenv""
+
+## 
 npx prisma init
 
+## 
+npx prisma generate
 
 
+## controller 
+onde recebe informação
+
+## service 
+onde processa as informações
